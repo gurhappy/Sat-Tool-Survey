@@ -1,0 +1,78 @@
+html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAT Tool Survey</title>
+</head>
+<body>
+    <h1>SAT Tool Survey</h1>
+
+    <form id="surveyForm">
+        <h2>Q. Are we using SAT tool on a regular basis?</h2>
+        <input type="radio" name="q1" value="Yes"> A. Yes<br>
+        <input type="radio" name="q1" value="Mostly"> B. Mostly<br>
+        <input type="radio" name="q1" value="No"> C. No<br>
+
+        <h2>Q. How easy to use SAT tool before SOS on standups?</h2>
+        <input type="radio" name="q2" value="Easy"> A. Easy<br>
+        <input type="radio" name="q2" value="Difficult"> B. Difficult<br>
+        <input type="radio" name="q2" value="Takes more time to launch"> C. Takes more time to launch<br>
+
+        <h2>Q. Does SAT tool help with Fast start?</h2>
+        <input type="radio" name="q3" value="Yes"> A. Yes<br>
+        <input type="radio" name="q3" value="No"> B. No<br>
+        <input type="radio" name="q3" value="Rarely"> C. Rarely<br>
+        <input type="radio" name="q3" value="Takes extra time"> D. Takes extra time<br>
+
+        <h2>Q. Do we need to install SAT every time to use as PAs laptops are not the same every day?</h2>
+        <input type="radio" name="q4" value="There is no problem"> A. There is no problem<br>
+        <input type="radio" name="q4" value="Yes, it's hard"> B. Yes, it's hard<br>
+        <input type="radio" name="q4" value="We still manage"> C. We still manage<br>
+        <input type="radio" name="q4" value="Need some good infrastructure"> D. Need some good infrastructure<br>
+
+        <h2>Q. Do you need a new version of SAT to make it more user-friendly?</h2>
+        <input type="radio" name="q5" value="Yes"> A. Yes<br>
+        <input type="radio" name="q5" value="Need more up-gradation"> B. Need more up-gradation<br>
+        <input type="radio" name="q5" value="No"> C. No<br>
+
+        <h2>Q. Are you happy with the current SAT Tool?</h2>
+        <input type="radio" name="q6" value="Yes"> A. Yes<br>
+        <input type="radio" name="q6" value="No"> B. No<br>
+
+        <br>
+        <button type="button" onclick="submitSurvey()">Submit Survey</button>
+    </form>
+
+    <div id="surveyResults">
+        <!-- Survey results will be displayed here -->
+    </div>
+
+    <script>
+        function submitSurvey() {
+            const form = document.getElementById('surveyForm');
+            const formData = new FormData(form);
+            let results = {};
+
+            for (const entry of formData.entries()) {
+                if (results[entry[1]]) {
+                    results[entry[1]]++;
+                } else {
+                    results[entry[1]] = 1;
+                }
+            }
+
+            let totalResponses = formData.getAll('q1').length;
+
+            let resultText = "<h2>Survey Results:</h2>";
+            for (const [key, value] of Object.entries(results)) {
+                let percentage = ((value / totalResponses) * 100).toFixed(2);
+                resultText += `<p>${key}: ${value} (${percentage}%)</p>`;
+            }
+
+            document.getElementById('surveyResults').innerHTML = resultText;
+        }
+    </script>
+</body>
+</html>
